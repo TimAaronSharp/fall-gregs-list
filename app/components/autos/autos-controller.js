@@ -9,9 +9,13 @@ function AutosController() {
   // Filter / Search
   var autosElem = document.getElementById('autos-list')
   var autosFormElem = document.getElementById('add-auto-form')
-  var showButton = document.getElementById('show-button')
+  var autosFieldElem = document.getElementById('field-area')
+  var showButton = document.getElementById('show-car-button')
+
+  var autosFormTemplate = ''
   function drawAutos() {
     // WHERE ARE ALL THE AUTOS?
+    debugger
     var autos = autosService.getAutos()
     var template = ''
     for (var i = 0; i < autos.length; i++) {
@@ -36,12 +40,75 @@ function AutosController() {
     }
     autosElem.innerHTML = template
   }
+  
+ this.drawAutosField = function drawAutosField(){
+
+    autosFormTemplate = `
+    <div class="col-sm-6 col-sm-offset-3" id="add-auto-form">
+    <form class="form" onsubmit="app.controllers.autosCtrl.addAuto(event), app.controllers.autosCtrl.showAddAutoForm()">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" name="title" class="form-control" placeholder="Title" required>
+        </div>
+        <div class="form-group">
+            <label for="make">Make:</label>
+            <input type="text" name="make" class="form-control" placeholder="Make">
+        </div>
+        <div class="form-group">
+            <label for="model">model:</label>
+            <input type="text" name="model" class="form-control" placeholder="model">
+        </div>
+        <div class="form-group">
+            <label for="year">year:</label>
+            <input type="text" name="year" class="form-control" placeholder="year">
+        </div>
+        <div class="form-group">
+            <label for="mileage">mileage:</label>
+            <input type="text" name="mileage" class="form-control" placeholder="mileage">
+        </div>
+        <div class="form-group">
+            <label for="color">color:</label>
+            <input type="text" name="color" class="form-control" placeholder="color">
+        </div>
+        <div class="form-group">
+            <label for="price">price:</label>
+            <input type="text" name="price" class="form-control" placeholder="price" required>
+        </div>
+        <div class="form-group">
+            <label for="condition">condition:</label>
+            <input type="text" name="condition" class="form-control" placeholder="condition">
+        </div>
+        <div class="form-group">
+            <label for="description">description:</label>
+            <input type="text" name="description" class="form-control" placeholder="description" required>
+        </div>
+        <div class="form-group">
+            <label for="location">location:</label>
+            <input type="text" name="location" class="form-control" placeholder="location">
+        </div>
+        <div class="form-group">
+            <label for="contact">contact:</label>
+            <input type="text" name="contact" class="form-control" placeholder="contact" required>
+        </div>
+        <div class="form-group">
+            <label for="img">img:</label>
+            <input type="text" name="img" class="form-control" placeholder="img">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-success" type="submit">Add Car</button>
+        </div>
+    </form>
+</div>`
+    autosFieldElem.innerHTML = autosFormTemplate
+    autosFormTemplate = ''
+  }
 
   this.addAuto = function addAuto(event) {
     event.preventDefault()
     var form = event.target
     autosService.addAuto(form)
-    autosFormElem.classList.toggle('hidden', true)
+    // autosFormElem.classList.toggle('hidden', true)
+    autosFieldElem.innerHTML = autosFormTemplate
     drawAutos()
   }
   var formstate = false
@@ -50,15 +117,15 @@ function AutosController() {
     if (formstate) {
       showButton.innerText = 'Add Listing'
       showButton.className = 'btn btn-info'
-      autosFormElem.classList.add('hidden')
+      //autosFormElem.classList.add('hidden')
       formstate = false
+      autosFieldElem.innerHTML = autosFormTemplate
     } else {
       showButton.innerText = 'Cancel'
       showButton.className = 'btn btn-danger'
-      autosFormElem.classList.remove('hidden')
+     // autosFormElem.classList.remove('hidden')
       formstate = true
     }
   }
-
   drawAutos()
 }
