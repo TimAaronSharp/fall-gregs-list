@@ -1,26 +1,26 @@
 function AutosController() {
-  var autosService = new AutosService()
+    var autosService = new AutosService()
 
-  // Buttons
-  // Add New Auto
-  // Delete Auto
-  // Report Flag
-  // View More
-  // Filter / Search
-  var autosElem = document.getElementById('autos-list')
-  var autosFormElem = document.getElementById('add-auto-form')
-  var autosFieldElem = document.getElementById('field-area')
-  var showButton = document.getElementById('show-car-button')
+    // Buttons
+    // Add New Auto
+    // Delete Auto
+    // Report Flag
+    // View More
+    // Filter / Search
+    var autosElem = document.getElementById('autos-list')
+    var autosFormElem = document.getElementById('add-auto-form')
+    var autosFieldElem = document.getElementById('field-area')
+    var showButton = document.getElementById('show-car-button')
 
-  var autosFormTemplate = ''
-  function drawAutos() {
-    // WHERE ARE ALL THE AUTOS?
-    debugger
-    var autos = autosService.getAutos()
-    var template = ''
-    for (var i = 0; i < autos.length; i++) {
-      var auto = autos[i];
-      template += `
+    var autosFormTemplate = ''
+    function drawAutos() {
+        // WHERE ARE ALL THE AUTOS?
+
+        var autos = autosService.getAutos()
+        var template = ''
+        for (var i = 0; i < autos.length; i++) {
+            var auto = autos[i];
+            template += `
             <div class="col-md-3">
                 <div class="panel panel-info">
                     <div class="panel-heading">
@@ -37,13 +37,13 @@ function AutosController() {
                 </div>
             </div>
             `
+        }
+        autosElem.innerHTML = template
     }
-    autosElem.innerHTML = template
-  }
-  
- this.drawAutosField = function drawAutosField(){
 
-    autosFormTemplate = `
+    this.drawAutosField = function drawAutosField() {
+
+        autosFormTemplate = `
     <div class="col-sm-6 col-sm-offset-3" id="add-auto-form">
     <form class="form" onsubmit="app.controllers.autosCtrl.addAuto(event), app.controllers.autosCtrl.showAddAutoForm()">
         <div class="form-group">
@@ -99,33 +99,33 @@ function AutosController() {
         </div>
     </form>
 </div>`
-    autosFieldElem.innerHTML = autosFormTemplate
-    autosFormTemplate = ''
-  }
-
-  this.addAuto = function addAuto(event) {
-    event.preventDefault()
-    var form = event.target
-    autosService.addAuto(form)
-    // autosFormElem.classList.toggle('hidden', true)
-    autosFieldElem.innerHTML = autosFormTemplate
-    drawAutos()
-  }
-  var formstate = false
-  
-  this.showAddAutoForm = function showAddAutoForm() {
-    if (formstate) {
-      showButton.innerText = 'Add Listing'
-      showButton.className = 'btn btn-info'
-      //autosFormElem.classList.add('hidden')
-      formstate = false
-      autosFieldElem.innerHTML = autosFormTemplate
-    } else {
-      showButton.innerText = 'Cancel'
-      showButton.className = 'btn btn-danger'
-     // autosFormElem.classList.remove('hidden')
-      formstate = true
+        autosFieldElem.innerHTML = autosFormTemplate
+        autosFormTemplate = ''
     }
-  }
-  drawAutos()
+
+    this.addAuto = function addAuto(event) {
+        event.preventDefault()
+        var form = event.target
+        autosService.addAuto(form)
+        // autosFormElem.classList.toggle('hidden', true)
+        autosFieldElem.innerHTML = autosFormTemplate
+        drawAutos()
+    }
+    var formstate = false
+
+    this.showAddAutoForm = function showAddAutoForm() {
+        if (formstate) {
+            showButton.innerText = 'Add Car Listing'
+            showButton.className = 'btn btn-info'
+            //autosFormElem.classList.add('hidden')
+            formstate = false
+            autosFieldElem.innerHTML = autosFormTemplate
+        } else {
+            showButton.innerText = 'Cancel'
+            showButton.className = 'btn btn-danger'
+            // autosFormElem.classList.remove('hidden')
+            formstate = true
+        }
+    }
+    drawAutos()
 }

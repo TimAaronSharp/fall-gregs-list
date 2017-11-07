@@ -14,11 +14,13 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                <button id="show-car-button" class="btn btn-info" onclick="app.controllers.autosCtrl.drawAutosField(), app.controllers.autosCtrl.showAddAutoForm()">Add A Car Listing</button>
+                <button id="show-car-button" class="btn btn-info" onclick="app.controllers.autosCtrl.drawAutosField(), app.controllers.autosCtrl.showAddAutoForm()">Add Car Listing</button>
+                <button id="show-animal-button" class="btn btn-info" onclick="app.controllers.animalsCtrl.drawAnimalsField(), app.controllers.animalsCtrl.showAddAnimalForm()">Add Animal Listing</button>
+                <button id="show-property-button" class="btn btn-info" onclick="app.controllers.propertiesCtrl.drawPropertiesField(), app.controllers.propertiesCtrl.showAddPropertyForm()">Add Property Listing</button>
             </div>
         </div>
         <div class="row" id="field-area">
-           
+
         </div>
         <div class="row" id="autos-list">
             <!-- <div class="col-md-3">
@@ -38,6 +40,9 @@
             </div> -->
         </div>
         <div class="row" id="animals-list">
+
+        </div>
+        <div class="row" id="properties-list">
 
         </div>
     </div>
