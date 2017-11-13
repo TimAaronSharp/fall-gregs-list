@@ -25,14 +25,14 @@ function PropertiesService() {
         this.price = config.price.value
     }
     this.getProperties = function getProperties() {
-        return properties
+        return JSON.parse(JSON.stringify(properties))
     }
 
     this.getProperty = function getProperty(id) {
         for (var i = 0; i < properties.length; i++) {
             var property = properties[i];
             if (id == property.id) {
-                return property
+                return JSON.parse(JSON.stringify(property))
             }
         }
     }

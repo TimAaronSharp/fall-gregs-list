@@ -1,24 +1,13 @@
 function AutosService() {
 
+    var baseUrl = 'http://localhost:5000/api/autos'
     // WHATS PRIVATE?
     // DUMMY DATA
-    var autos = [{
-        id: 'asdfkljsdafdsaflkj239023u9402u',
-        make: 'Honda',
-        model: 'Accord',
-        year: 1987,
-        color: 'Burgandy',
-        price: 1800,
-        mileage: 323200,
-        condition: 'Like New',
-        engineId: '3', //GOOD QUESTION
-        description: 'Runs great with gas',
-        location: 'Boise',
-        contact: 'testcar@cars.auto',
-        img: '//loremflickr.com/200/200/car',
-        title: 'Your New Car'
-    }]
+    var autos = []
 
+    function logError(err){
+        console.error(err)
+    }
     var engines = [
         { id: 1, fuel: 'Gas', cylinders: 4 },
         { id: 2, fuel: 'Diesel', cylinders: 4 },
@@ -46,8 +35,16 @@ function AutosService() {
 
     // PUBLIC?
 
-    this.getAutos = function getAutos(){
-        return autos
+    this.getAutos = function getAutos(drawAutosCb){
+        if(!drawAutosCb || typeof drawAutosCb != 'function'){
+            return console.error('Did not pass a cb or cb is not a function')
+        }
+        $.get(baseUrl)
+        .then ( res =>{
+            autos = res
+            drawAutosCb(res)
+        })
+        .fail(logError) 
     }
     
     this.getAuto = function getAuto(id){
@@ -59,9 +56,12 @@ function AutosService() {
         }
     }
 
-    this.addAuto = function addAuto(form){
+    this.addAuto = function addAuto(form, getAutosCb){
         var newAuto = new Auto(form)
-        autos.unshift(newAuto)
+        if(!form || !getAutosCb || typeof getAutosCb != 'function'){ 
+            return console.error('Unable to addAuto', 'bad parameters', form, getAutoCb) 
+        }
+        $.post()
     }
 
 }

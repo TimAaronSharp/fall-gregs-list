@@ -11,12 +11,13 @@ function AnimalsController() {
     var animalsFormElem = document.getElementById('add-animals-form')
     var animalsFieldElem = document.getElementById('field-area')
     var showButton = document.getElementById('show-animal-button')
-
+    
     var animalsFormTemplate = ''
-    function drawAnimals() {
-        // WHERE ARE ALL THE ANIMALS?
+    function getAnimals() {
+        animalsService.getAnimals(drawAnimals)
+    }
 
-        var animals = animalsService.getAnimals()
+    function drawAnimals(animals) {
         var animalTemplate = ''
         for (var i = 0; i < animals.length; i++) {
             var animal = animals[i];
@@ -26,6 +27,7 @@ function AnimalsController() {
                       <div class="panel-heading">
                           <h3>${animal.title}</h3>
                           <h6>${animal.location}</h6>
+                          <i class="fa fa-trash" onclick="app.controllers.animalsCtrl.removeAnimal(${i})"></i>
                       </div>
                       <div class="panel-body text-center">
                           <img src="${animal.img}" class="img-responsive">
@@ -42,7 +44,7 @@ function AnimalsController() {
     }
 
     this.drawAnimalsField = function drawAnimalsField() {
-
+        debugger
         animalsFormTemplate = `
       <div class="col-sm-6 col-sm-offset-3" id="add-animal-form">
       <form class="form" onsubmit="app.controllers.animalsCtrl.addAnimal(event), app.controllers.animalsCtrl.showAddAnimalForm()">
@@ -72,7 +74,7 @@ function AnimalsController() {
           </div>
           <div class="form-group">
               <label for="houseTrained">House Trained:</label>
-              <input type="text" name="housTtrained" class="form-control" placeholder="House Trained" required>
+              <input type="text" name="housetrained" class="form-control" placeholder="House Trained" required>
           </div>
           <div class="form-group">
               <label for="location">Location:</label>
@@ -103,13 +105,15 @@ function AnimalsController() {
         animalsFormTemplate = ''
     }
 
-    this.addAnimal = function addAnimal(event) {
-        event.preventDefault()
-        var form = event.target
-        animalsService.addAnimal(form)
+    this.addAnimal = function addAnimal(e) {
+        e.preventDefault()
+        var form = e.target
+        animalsService.addAnimal(form, getAnimals)
         // animalsFormElem.classList.toggle('hidden', true)
         animalsFieldElem.innerHTML = animalsFormTemplate
-        drawAnimals()
+    }
+    this.removeAnimal = function removeAnimal(index){
+        animalsService.removeAnimal(index, getAnimals)
     }
     var animalFormstate = false
 
@@ -127,5 +131,5 @@ function AnimalsController() {
             animalFormstate = true
         }
     }
-    drawAnimals()
+    getAnimals()
 }
