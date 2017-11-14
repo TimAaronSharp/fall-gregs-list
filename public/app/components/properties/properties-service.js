@@ -1,17 +1,8 @@
 function PropertiesService() {
-    var properties = [{
-        id: 'asdjfhjaklh',
-        squareFeet: 1000,
-        color: 'pink',
-        age: 50,
-        yearBuilt: 1967,
-        title: 'Your New Property',
-        location: 'Boise',
-        contact: 'propertyseller@greg.com',
-        img: '//placehold.it/200x200',
-        price: 200,
-    }]
+    var properties = []
     var id = 0
+    var baseUrl = 'http://localhost:5000/api/autos'
+
     function Property(config) {
         this.id = id++
         this.squareFeet = config.squareFeet.value
@@ -24,20 +15,46 @@ function PropertiesService() {
         this.img = config.img.value
         this.price = config.price.value
     }
-    this.getProperties = function getProperties() {
-        return JSON.parse(JSON.stringify(properties))
+
+    function logError(err){
+        console.error(err)
+    }
+
+    this.getProperties = function getProperties(getPropertiesCb) {
+        if(!getProperties || typeof getProperties != 'function'){
+            return console.error('Did not pass a cb or cb is not a function')
+        }
+        $.get(baseUrl)
+        .then(res =>{
+            properties = res
+            getProperties(res)
+        })
+        .fail(logError)
     }
 
     this.getProperty = function getProperty(id) {
         for (var i = 0; i < properties.length; i++) {
             var property = properties[i];
             if (id == property.id) {
-                return JSON.parse(JSON.stringify(property))
+                return property
             }
         }
     }
-    this.addProperty = function addProperty(form){
+    
+    this.addProperty = function addProperty(form, getPropertiesCb){
+        
         var newProperty = new Property(form)
-        properties.unshift(newProperty)
+        if(!form || !getPropertiesCb || typeof getPropertiesCb != 'function'){
+            return console.error('Unable to add Property', 'bad parameters', form, getPropertiesCb) 
+        }
+        $.post(baseUrl, newProperty)
+        .then(getPropertiesCb)
+        .fail(logError)
+        
+    }
+    this.removeProperty = function removeProperty(index, getPropertiesCb){
+        if(!form || !getPropertiesCb || typeof getPropertiesCb != 'function'){
+            return console.error('Unable to remove Property', 'bad parameters', form, getPropertiesCb) 
+        }
     }
 }

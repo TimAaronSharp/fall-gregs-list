@@ -59,9 +59,21 @@ function AutosService() {
     this.addAuto = function addAuto(form, getAutosCb){
         var newAuto = new Auto(form)
         if(!form || !getAutosCb || typeof getAutosCb != 'function'){ 
-            return console.error('Unable to addAuto', 'bad parameters', form, getAutoCb) 
+            return console.error('Unable to add Auto', 'bad parameters', form, getAutoCb) 
         }
-        $.post()
+        $.post(baseUrl, newAuto)
+        .then(getAutosCb)
+        .fail(logError)
+    }
+
+    this.removeAuto = function removeAuto(index, getAutosCb){
+        return console.error('Unable to remove Auto', 'bad parameters', form, getAutosCb) 
+        $.ajax({
+            url: baseUrl + '/' + index,
+            method: 'DELETE'
+        })
+        .then(getAutosCb)
+        .fail(logError)
     }
 
 }

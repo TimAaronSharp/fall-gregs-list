@@ -115,6 +115,9 @@ function AutosController() {
     }
     var formstate = false
 
+    this.removeAuto = function removeAuto(index){
+        autosService.removeAuto(index, getAutos)
+    }
     this.showAddAutoForm = function showAddAutoForm() {
         if (formstate) {
             showButton.innerText = 'Add Car Listing'
@@ -129,5 +132,5 @@ function AutosController() {
             formstate = true
         }
     }
-    drawAutos()
+    getAutos()
 }

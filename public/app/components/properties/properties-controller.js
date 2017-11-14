@@ -11,12 +11,15 @@ function PropertiesController() {
     var propertiesFormElem = document.getElementById('add-properties-form')
     var propertiesFieldElem = document.getElementById('field-area')
     var showButton = document.getElementById('show-property-button')
+    
+    function getProperties(){
+        propertiesService.getProperties(drawProperties)
+    }
 
     var propertiesFormTemplate = ''
     function drawProperties() {
         // WHERE ARE ALL THE PROPERTIES?
 
-        var properties = propertiesService.getProperties()
         var propertyTemplate = ''
         for (var i = 0; i < properties.length; i++) {
             var property = properties[i];
@@ -26,6 +29,7 @@ function PropertiesController() {
                       <div class="panel-heading">
                           <h3>${property.title}</h3>
                           <h6>${property.location}</h6>
+                          <i class="fa fa-trash" onclick="app.controllers.propertiesCtrl.removeProperty(${i})"></i>
                       </div>
                       <div class="panel-body text-center">
                           <img src="${property.img}" class="img-responsive">
@@ -92,12 +96,15 @@ function PropertiesController() {
     }
 
     this.addProperty = function addProperty(event) {
+        debugger
         event.preventDefault()
         var form = event.target
-        propertiesService.addProperty(form)
+        propertiesService.addProperty(form, getProperties)
         // propertiesFormElem.classList.toggle('hidden', true)
         propertiesFieldElem.innerHTML = propertiesFormTemplate
-        drawProperties()
+    }
+    this.removeProperty = function removeProperty(index){
+        propertiesService.removeProperty(index, getProperties)
     }
     var propertyFormstate = false
 
@@ -115,5 +122,5 @@ function PropertiesController() {
             propertyFormstate = true
         }
     }
-    drawProperties()
+    getProperties()
 }

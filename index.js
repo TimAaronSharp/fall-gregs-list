@@ -42,6 +42,18 @@ var properties = []
 //     img: '//loremflickr.com/200/200/car',
 //     title: 'Your New Car'
 // }
+// {
+//     id: 'asdjfhjaklh',
+//     squareFeet: 1000,
+//     color: 'pink',
+//     age: 50,
+//     yearBuilt: 1967,
+//     title: 'Your New Property',
+//     location: 'Boise',
+//     contact: 'propertyseller@greg.com',
+//     img: '//placehold.it/200x200',
+//     price: 200,
+// }
 //------------------------ANIMALS------------------------
 server.get('/api/animals', (req, res, next) => {
     res.send(animals)
