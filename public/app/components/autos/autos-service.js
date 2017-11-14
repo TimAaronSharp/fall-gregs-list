@@ -67,7 +67,6 @@ function AutosService() {
     }
 
     this.removeAuto = function removeAuto(index, getAutosCb){
-        return console.error('Unable to remove Auto', 'bad parameters', form, getAutosCb) 
         $.ajax({
             url: baseUrl + '/' + index,
             method: 'DELETE'

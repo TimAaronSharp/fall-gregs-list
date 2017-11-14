@@ -63,7 +63,6 @@ function AnimalsService() {
             .fail(logError)
     }
     this.removeAnimal = function removeAnimal(index, getAnimalsCb) {
-        return console.error('Unable to remove Animal', 'bad parameters', form, getAnimalsCb) 
         $.ajax({
             url: baseUrl + '/' + index,
             method: 'DELETE'

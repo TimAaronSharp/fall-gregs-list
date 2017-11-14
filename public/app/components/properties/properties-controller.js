@@ -17,7 +17,7 @@ function PropertiesController() {
     }
 
     var propertiesFormTemplate = ''
-    function drawProperties() {
+    function drawProperties(properties) {
         // WHERE ARE ALL THE PROPERTIES?
 
         var propertyTemplate = ''
@@ -33,7 +33,7 @@ function PropertiesController() {
                       </div>
                       <div class="panel-body text-center">
                           <img src="${property.img}" class="img-responsive">
-                          <h4>${property.age} year old - ${property.breed}</h4>
+                          <h4>${property.age} year old - Built in ${property.yearBuilt}</h4>
                       </div>
                       <div class="panel-footer">
                           <h5>$ ${property.price}</h5>
@@ -95,17 +95,19 @@ function PropertiesController() {
         propertiesFormTemplate = ''
     }
 
-    this.addProperty = function addProperty(event) {
-        debugger
-        event.preventDefault()
-        var form = event.target
+    this.addProperty = function addProperty(e) {
+        e.preventDefault()
+        var form = e.target
         propertiesService.addProperty(form, getProperties)
         // propertiesFormElem.classList.toggle('hidden', true)
         propertiesFieldElem.innerHTML = propertiesFormTemplate
     }
+
     this.removeProperty = function removeProperty(index){
+        debugger
         propertiesService.removeProperty(index, getProperties)
     }
+
     var propertyFormstate = false
 
     this.showAddPropertyForm = function showAddPropertyForm() {

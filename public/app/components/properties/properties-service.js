@@ -1,7 +1,7 @@
 function PropertiesService() {
     var properties = []
     var id = 0
-    var baseUrl = 'http://localhost:5000/api/autos'
+    var baseUrl = 'http://localhost:5000/api/properties'
 
     function Property(config) {
         this.id = id++
@@ -20,14 +20,14 @@ function PropertiesService() {
         console.error(err)
     }
 
-    this.getProperties = function getProperties(getPropertiesCb) {
+    this.getProperties = function getProperties(drawPropertiesCb) {
         if(!getProperties || typeof getProperties != 'function'){
             return console.error('Did not pass a cb or cb is not a function')
         }
         $.get(baseUrl)
         .then(res =>{
             properties = res
-            getProperties(res)
+            drawPropertiesCb(res)
         })
         .fail(logError)
     }
@@ -53,8 +53,14 @@ function PropertiesService() {
         
     }
     this.removeProperty = function removeProperty(index, getPropertiesCb){
-        if(!form || !getPropertiesCb || typeof getPropertiesCb != 'function'){
-            return console.error('Unable to remove Property', 'bad parameters', form, getPropertiesCb) 
-        }
+        // if(!index || !getPropertiesCb || typeof getPropertiesCb != 'function'){
+        //     return console.error('Unable to remove Property', 'bad parameters', index, getPropertiesCb) 
+        // }
+        $.ajax({
+            url: baseUrl + '/' + index,
+            method: 'DELETE'
+        })
+        .then( getPropertiesCb)
+        .fail(logError)
     }
 }
