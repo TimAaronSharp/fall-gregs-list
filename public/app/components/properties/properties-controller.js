@@ -29,7 +29,7 @@ function PropertiesController() {
                       <div class="panel-heading">
                           <h3>${property.title}</h3>
                           <h6>${property.location}</h6>
-                          <i class="fa fa-trash" onclick="app.controllers.propertiesCtrl.removeProperty(${i})"></i>
+                          <i class="fa fa-trash" onclick="app.controllers.propertiesCtrl.removeProperty('${property._id}')"></i>
                       </div>
                       <div class="panel-body text-center">
                           <img src="${property.img}" class="img-responsive">

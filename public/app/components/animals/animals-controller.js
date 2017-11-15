@@ -27,7 +27,7 @@ function AnimalsController() {
                       <div class="panel-heading">
                           <h3>${animal.title}</h3>
                           <h6>${animal.location}</h6>
-                          <i class="fa fa-trash" onclick="app.controllers.animalsCtrl.removeAnimal(${i})"></i>
+                          <i class="fa fa-trash" onclick="app.controllers.animalsCtrl.removeAnimal('${animal._id}')"></i>
                       </div>
                       <div class="panel-body text-center">
                           <img src="${animal.img}" class="img-responsive">

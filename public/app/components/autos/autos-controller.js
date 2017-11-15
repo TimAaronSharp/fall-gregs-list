@@ -27,7 +27,7 @@ function AutosController() {
                     <div class="panel-heading">
                         <h3>${auto.title}</h3>
                         <h6>${auto.location}</h6>
-                        <i class="fa fa-trash" onclick="app.controllers.autosCtrl.removeAuto(${i})"></i>
+                        <i class="fa fa-trash" onclick="app.controllers.autosCtrl.removeAuto('${auto._id}')"></i>
                     </div>
                     <div class="panel-body text-center">
                         <img src="${auto.img}" class="img-responsive">

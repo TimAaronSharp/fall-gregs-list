@@ -19,9 +19,7 @@ function AnimalsService() {
     function logError(err) {
         console.error(err)
     }
-    var id = 0
     function Animal(config) {
-        this.id = id++
         this.species = config.species.value
         this.breed = config.breed.value
         this.color = config.color.value

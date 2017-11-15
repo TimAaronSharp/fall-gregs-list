@@ -4,7 +4,6 @@ function PropertiesService() {
     var baseUrl = 'http://localhost:5000/api/properties'
 
     function Property(config) {
-        this.id = id++
         this.squareFeet = config.squareFeet.value
         this.color = config.color.value
         this.age = config.age.value
