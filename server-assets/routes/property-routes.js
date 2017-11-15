@@ -19,7 +19,7 @@ router.post('/api/properties', (req, res, next) => {
         .catch(err => res.status(400).send(err))
 })
 
-router.delete('/api.properties/:id', (req, res, next) => {
+router.delete('/api/properties/:id', (req, res, next) => {
     Properties.findByIdAndRemove(req.params.id)
         .then((property) => {
             res.send({ message: 'Successfully removed property at ' + req.params.id })
